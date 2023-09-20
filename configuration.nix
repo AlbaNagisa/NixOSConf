@@ -11,8 +11,11 @@
     ];
 
   # Bootloader.
+  #  boot.loader.systemd-boot.enable = true;   
+  boot.loader.efi.canTouchEfiVariables = true;  
   boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/vda";
+  boot.loader.grub.devices = [ "nodev" ];
+  boot.loader.grub.efiSupport = true;
   boot.loader.grub.useOSProber = true;
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -80,6 +83,7 @@
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
     mako
+    wofi
     swww
     kitty
     libnotify
