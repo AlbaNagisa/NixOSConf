@@ -85,6 +85,7 @@
     mako
     wofi
     swww
+    eww-wayland
     kitty
     libnotify
     waybar
@@ -101,6 +102,9 @@
     virt-manager
     spice-gtk
     spice-vdagent
+    pamixer
+    brightnessctl
+    
   ];
 
   environment.gnome.excludePackages = with pkgs.gnome; [
