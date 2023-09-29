@@ -1,0 +1,51 @@
+(defpoll time :interval "1s"
+`date +%H:%M:%S`)
+
+(defwindow example
+  :monitor 0
+  :exclusive true
+  :geometry (geometry :x "0%"
+    :y "10px"
+    :width "95%"
+    :height "50px"
+  :anchor "top center")
+  :stacking "fg"
+  
+  (box
+    (box
+      "${EWW_BATTERY.BAT0.capacity}%"
+    )
+    time
+    (box :space-evenly true :spacing 50
+      
+      "${EWW_BATTERY.BAT0.capacity}% "
+      (button :onclick "eww open power-menu --toggle"
+        (box
+          "z"
+        )
+      )
+    )
+    
+  )
+  
+  
+)
+
+
+(defwidget power-button  [emoji cmd]
+  (button :class "powerButton" :onclick "${cmd}"   "${emoji}" )
+)
+(defwindow power-menu
+  :monitor 0
+  :geometry (geometry :x "0%"
+    :y "10px"
+    :width "40%"
+    :height "20%"
+  :anchor "center center")
+  (box :height "50" :class "power-menu"
+    (power-button :emoji "󰐥" :cmd "shutdown -h now" )
+    (power-button :emoji "󰜉" :cmd "reboot" )
+    (power-button :emoji "󰌾" :cmd "swaylock")
+    (power-button :emoji "󰍃" :cmd "logoff" )
+  )
+)

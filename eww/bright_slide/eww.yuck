@@ -1,0 +1,11 @@
+(defwindow brightness
+  :monitor 1
+  :geometry (geometry :x "50%"
+    :y "50px"
+    :width "10%"
+    :height "30px"
+  :anchor "bottom center")
+  :stacking "fg"
+  (box :class "main"
+  "paypal")
+)
