@@ -74,6 +74,21 @@
   services.xserver.desktopManager.gnome.enable = true;
   services.xserver.displayManager.gdm.enable = true;
 
+  # Fonts
+  fonts = {
+    enableDefaultFonts = true;
+    fontDir.enable = true;
+     fonts = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      # noto-fonts-extra
+      ubuntu_font_family
+      (nerdfonts.override { fonts = [ "FiraCode" "Agave" ]; })
+
+    ];
+  };
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -82,6 +97,8 @@
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
+    gnat13
+    swaylock
     mako
     wofi
     swww
@@ -104,9 +121,10 @@
     spice-vdagent
     pamixer
     brightnessctl
-    
+    playerctl
   ];
 
+  security.pam.services.swaylock = {};
   environment.gnome.excludePackages = with pkgs.gnome; [
         pkgs.gnome-tour
         pkgs.gnome-photos
@@ -150,10 +168,9 @@
      opengl.enable = true;
      nvidia.modesetting.enable = true;
   };
-
+  programs.java.enable = true;
   xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-hyprland  pkgs.xdg-desktop-portal-gnome ];
-
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-hyprland  pkgs.xdg-desktop-portal-wlr ];
   nixpkgs.overlays = [
     (self: super: {
 	discord = super.discord.overrideAttrs (
